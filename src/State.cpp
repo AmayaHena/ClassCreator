@@ -11,9 +11,13 @@ void State::createHpp(Parser &p, Writer &w, const std::vector<std::string> &file
 {
 	w.setFile(file);
 
-	if (p.getInheritance()) {
+	if (p.getInheritance() && !p.getInterface()) {
 		w.setInclude(p.getProjectName() + ".hpp");
 		w.setInheritance(p.getProjectName());
+	}
+	if (p.getInterface()) {
+		w.setInclude("I" + s + ".hpp");
+		w.setInheritance("I" + s);
 	}
 	if (p.getFolders()) {
 		_d.createDir(p.getProjectName() + "/inc", s);
@@ -29,6 +33,8 @@ void State::createCpp(Parser &p, Writer &w, const std::vector<std::string> &file
 
 	if (p.getInheritance())
 		w.setInheritance(p.getProjectName());
+	if (p.getInterface())
+		w.setInheritance("I" + s);
 	if (p.getFolders()) {
 		_d.createDir(p.getProjectName() + "/src", s);
 		w.setInclude(s + "/" + s + ".hpp");

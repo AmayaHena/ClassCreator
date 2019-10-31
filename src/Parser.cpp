@@ -55,6 +55,7 @@ bool Parser::helperCommand()
               << std::endl << "\tOptions:" << std::endl
               << "\t-m\tmake a main function" << std::endl
               << "\t-i\tmake inheritance from the main class of the project" << std::endl
+              << "\t-I\tmake interface for every class" << std::endl
               << "\t-M\tmake a makefile" << std::endl
               << "\t-C\tmake CMakeLists.txt for CMake" << std::endl
               << "\t-d\tmake directory for classes" << std::endl
