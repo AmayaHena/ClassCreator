@@ -1,0 +1,59 @@
+In Folder config you can find 6 files :
+- main.cpp (what your .cpp file will looks like)
+- file.cpp (what your .cpp file(s) will looks like)
+- file.hpp (what your .hpp file(s) will looks like)
+- makefile (what your Makefile will looks like)
+- CMakeLists.txt (what your CMakeLists.txt will looks like)
+- header.txt (you can place your header here and the program will write it in every file(s))
+
+You can edith theses files above (if i'm not a bad programmer(lol))
+Just some explaination below to know how to edit them
+
+
+WARNING :
+First, never change their location and their names !
+Second, watch out about the tag, if you don't pay attention it won't be able to compile !
+
+
+For EVERY files the syntax for variables is :
+/*#!Variable*/
+(That's ubgly, yeah)
+
+Now file per file (with the following format) :
+name of the file :
+- /*#!Text*/             : text               [text]
+Tag with the synthax     quick description    example
+
+main.cpp :
+- /*#!Header*/ : there will be your header                [reference to header.txt]
+- /*#!IncludeMain*/ : there will be all your .hpp include [#include "X.hpp"]
+
+file.cpp :
+- /*#!Header*/ : there will be your header                            [reference to header.txt]
+- /*#!IncludeCpp*/ : is the include to the hpp file for this cpp file [#include "X.hpp"]
+- /*#!ConstructorCpp*/ : is the contructor for your class             [X::X()]
+- /*#!InheritanceCpp*/ : if needed there will be the inheritance      [ : X()]
+- /*#!DestructorCpp*/ : is the destructor for your class              [X::~X()]
+
+file.hpp :
+- /*#!Header*/ : There will be your header                                    [reference to header.txt]
+- /*#!FileName*/ : is the name of your file and of your class                 [X]
+- /*#!IncludeInheritanceHpp*/ : Include to the source file of you inheritance [#include "X.hpp"]
+- /*#!InheritanceHpp*/ : if needed there will be the inheritance              [ : puclic X ]
+- /*#!ContructorMethod*/ : is the constructor inside your .hpp                [X();]
+- /*#!DestructorMethod*/ : is the destructor inside your .hpp                 [~X();]
+
+makefile :
+- /*#!ProgramName*/ : is the name of your programm      [X]
+- /*#!SrcMakefile*/ : there will be your source file(s) [src/.../X.cpp]
+
+CMakeLists.txt :
+- /*#!ProgramName*/ : is the name of your program     [X]
+- /*#!SrcCMake*/ : is the sources (.cpp) of your code [src/.../X.cpp]
+- /*#!IncCMake*/ : is the sources (.hpp) of your code [inc/.../X.hpp]
+
+header.txt :
+- just put your cpp header here
+- if you don't want to use this feature, just don't write anything in
+
+Peter Parker is the new Tony Stark
