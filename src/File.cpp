@@ -26,6 +26,11 @@ std::vector<std::string> File::getFileHpp(void)
 	return _fileHpp;
 }
 
+std::vector<std::string> File::getFileInterface(void)
+{
+	return _fileInterface;
+}
+
 std::vector<std::string> File::getHeader(void)
 {
 	return _header;
@@ -87,7 +92,7 @@ std::vector<std::string> File::loadFile(const std::string &path, const bool requ
 	return File::loadFileToV(path);
 }
 
-bool File::loadConfig(const bool main, const bool make, const bool cmake)
+bool File::loadConfig(const bool main, const bool make, const bool cmake, const bool interface)
 {
 	if (checkDirExist("config") == false)
 		return false;
@@ -96,12 +101,14 @@ bool File::loadConfig(const bool main, const bool make, const bool cmake)
 	_header = loadFile("config/header.txt", true);
 	if (_fileHpp.empty() || _fileCpp.empty() || _header.empty())
 		return false;
+	_fileInterface = loadFile("config/interface.hpp", true);
 	_main = loadFile("config/main.cpp", main);
 	_make = loadFile("config/makefile", make);
 	_cmake = loadFile("config/CMakeLists.txt", cmake);
 	if ((main && _main.empty())
 		|| (make && _make.empty())
-		|| (cmake && _cmake.empty()))
+		|| (cmake && _cmake.empty())
+		|| (interface && _fileInterface.empty()))
 		return false;
 	return true;
 }

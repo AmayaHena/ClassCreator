@@ -22,6 +22,8 @@ bool Core::generateCode()
 
 	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
 	_s.createCppRoot(_p, _w, _f.getFileCpp(), _p.getProjectName());
+	if (_p.getInterface())
+		_s.createInterfaceRoot(_p, _w, _f.getFileInterface(), _p.getProjectName());
 	Core::fillPath(_p.getProjectName());
 	if (_p.getSubFiles().size() <= 0)
 		return true;
@@ -30,6 +32,8 @@ bool Core::generateCode()
 	for (const std::string &file: subfiles) {
 		_s.createHpp(_p, _w, _f.getFileHpp(), file);
 		_s.createCpp(_p, _w, _f.getFileCpp(), file);
+		if (_p.getInterface())
+			_s.createInterface(_p, _w, _f.getFileInterface(), file);
 		if (_p.getFolders())
 			Core::fillPath(file + "/" + file);
 		else
@@ -52,7 +56,7 @@ void Core::buildProject()
 
 bool Core::run()
 {
-	if (!_f.loadConfig(_p.getMain(), _p.getMakefile(), _p.getCMake()))
+	if (!_f.loadConfig(_p.getMain(), _p.getMakefile(), _p.getCMake(), _p.getInterface()))
 		return false;
 	if (_p.getMain())
 		_src.push_back("main.cpp");

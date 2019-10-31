@@ -34,6 +34,7 @@ class Parser {
 		bool getMain();
 		std::vector<std::string> getSubFiles();
 		bool getInheritance();
+		bool getInterface();
 		bool getMakefile();
 		bool getCMake();
 		bool getFolders();
@@ -56,6 +57,7 @@ class Parser {
 		std::string _project_name;
 		bool _main;
 		std::vector<std::string> _sub_files;
+		bool _interface;
 		bool _inheritance;
 		bool _makefile;
 		bool _cmake;

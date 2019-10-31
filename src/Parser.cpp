@@ -30,6 +30,11 @@ bool Parser::getInheritance(void)
 	return _inheritance;
 }
 
+bool Parser::getInterface(void)
+{
+	return _interface;
+}
+
 bool Parser::getMakefile(void)
 {
 	return _makefile;
@@ -66,6 +71,9 @@ void Parser::AVOptions(const std::string &s)
 			break;
 		case 'i' :
 			_inheritance = true;
+			break;
+		case 'I' :
+			_interface = true;
 			break;
 		case 'M' :
 			_makefile = true;
@@ -161,6 +169,7 @@ void Parser::parsingProceed(const std::vector<std::string> &v)
 	if (Parser::parsingBoolean("subfiles")) {
 		_sub_files = Parser::parsingStoVector("subfiles names", "PascalCase");
 		_inheritance = Parser::parsingBoolean("Inheritance (from your main file)");
+		_interface = Parser::parsingBoolean("Interfaces");
 	}
 	_folders = Parser::parsingBoolean("Folders");
 	_makefile = Parser::parsingBoolean("Makefile");

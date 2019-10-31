@@ -22,16 +22,17 @@ class File {
 		~File() = default;
 
 		/* Load Config public */
-		bool loadConfig(const bool main, const bool make, const bool cmake);
+		bool loadConfig(const bool main, const bool make, const bool cmake, const bool interface);
 
 		/* Generic Tool to load file */
 		std::vector<std::string> loadFile(const std::string &path, const bool request);
 
 		/* Getters */
-		std::vector<std::string> getMain();
 		std::vector<std::string> getFileCpp();
 		std::vector<std::string> getFileHpp();
+		std::vector<std::string> getFileInterface();
 		std::vector<std::string> getHeader();
+		std::vector<std::string> getMain();
 		std::vector<std::string> getMakefile();
 		std::vector<std::string> getCMake();
 
@@ -47,6 +48,7 @@ class File {
 		/* Variables - Ressources containers for files*/
 		std::vector<std::string> _fileHpp;
 		std::vector<std::string> _fileCpp;
+		std::vector<std::string> _fileInterface;
 		std::vector<std::string> _header;
 		std::vector<std::string> _main;
 		std::vector<std::string> _make;

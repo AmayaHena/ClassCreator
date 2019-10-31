@@ -27,8 +27,12 @@ class State {
 		/* Tools - state the writer and launch writer */
 		void createHpp(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
 		void createCpp(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
+		void createInterface(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
+
 		void createHppRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
 		void createCppRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
+		void createInterfaceRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
+
 		void generateMain(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &inc);
 		void generateMakefile(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &src);
 		void generateCMake(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &inc, const std::vector<std::string> &src);
