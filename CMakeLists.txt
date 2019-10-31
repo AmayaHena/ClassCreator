@@ -10,6 +10,7 @@ set(SRCS
     src/Parser.cpp
     src/Writer.cpp
     src/State.cpp
+    src/BabyWheel.cpp
     )
 
 set(HEADERS
@@ -19,6 +20,7 @@ set(HEADERS
     inc/Parser.hpp
     inc/Writer.hpp
     inc/State.hpp
+    inc/BabyWheel.hpp
     )
 
 add_executable(classCreator ${SRCS} ${HEADERS})

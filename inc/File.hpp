@@ -24,6 +24,9 @@ class File {
 		/* Load Config public */
 		bool loadConfig(const bool main, const bool make, const bool cmake);
 
+		/* Generic Tool to load file */
+		std::vector<std::string> loadFile(const std::string &path, const bool request);
+
 		/* Getters */
 		std::vector<std::string> getMain();
 		std::vector<std::string> getFileCpp();
@@ -33,9 +36,6 @@ class File {
 		std::vector<std::string> getCMake();
 
 	private:
-
-		/* Generic Tool to load file */
-		std::vector<std::string> loadFile(const std::string &path, const bool request);
 
 		/* Checks */
 		bool checkDirExist(const std::string &s);

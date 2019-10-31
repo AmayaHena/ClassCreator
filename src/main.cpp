@@ -5,11 +5,16 @@
 ** main
 */
 
+/* STD LIB */
+#include <functional>
+
 #include "Core.hpp"
+#include "BabyWheel.hpp"
 
 int main(int ac, char **av)
 {
 	(void)ac;
+	BabyWheel b;
 	std::vector<std::string> v;
 
 	for (unsigned int i = 0; av[i]; i++)
@@ -20,6 +25,10 @@ int main(int ac, char **av)
 		p.helperCommand();
 		return 0;
 	}
+
+// UNCONMENT THIS
+/* 	if (b.unlock(v))
+		return 0; */
 
 	Core c(v);
 
