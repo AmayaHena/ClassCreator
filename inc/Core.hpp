@@ -39,6 +39,7 @@ class Core {
 
 		/* Generation Folders and Files */
 		bool generateCode();
+		bool architectCode();
 
 		/* tools */
 		void buildProject();

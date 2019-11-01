@@ -42,6 +42,45 @@ bool Core::generateCode()
 	return true;
 }
 
+/* --- CURRENTLY IN DEVLOPEMENT --- */
+bool Core::architectCode()
+{
+	/* COMMENT THIS TO CONTINUE */
+	std::cout << "\033[1;31mCURRENTLY DEVLOPING THIS FEATURE\033[0m" << std::endl;
+	return true;
+	/* COMMENT THIS TO CONTINUE */
+
+	std::vector<std::string> arch = _f.loadFile(_p.getArchitecture(), true);
+
+	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
+	_s.createCppRoot(_p, _w, _f.getFileCpp(), _p.getProjectName());
+	if (_p.getInterface())
+		_s.createInterfaceRoot(_p, _w, _f.getFileInterface(), _p.getProjectName());
+	Core::fillPath(_p.getProjectName());
+	if (arch.empty())
+		return false;
+
+	for (const std::string &s: arch) {
+		(void)s;
+		/// string current_name (cf 1)
+		/// string current_path (cf 2)
+
+		/// 1 - get name of current level of architecture (from left to right)
+		/// always have the current level of arch in a string
+		/// maybe create a function that find the current and set the next one in return value
+
+		/// 2 - if needed create the folder
+		/// so we have to have the current full path of the architecture level in a string
+		/// so if we get deeper in the string we have to += of
+		/// there will always be directories for this
+
+		/// 3 - call state (create a new one for it (for : cpp hpp interface))
+		/// and set the right include for it and inheritance if needed
+	}
+	return true;
+}
+/* --- CURRENTLY IN DEVLOPEMENT --- */
+
 void Core::buildProject()
 {
 	std::string s;
@@ -63,7 +102,11 @@ bool Core::run()
 
 	_w.setHeader(_f.getHeader());
 	_d.createDir(".", _p.getProjectName());
-	Core::generateCode();
+	if (_p.getArchitecture().empty())
+		Core::generateCode();
+	else
+		if (!Core::architectCode())
+			return false;
 	_s.generateMain(_p, _w, _f.getMain(), _inc);
 	_s.generateMakefile(_p, _w, _f.getMakefile(), _src);
 	_s.generateCMake(_p, _w, _f.getCMake(), _inc, _src);

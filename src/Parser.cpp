@@ -49,6 +49,12 @@ bool Parser::getCMake(void)
 {
 	return _cmake;
 }
+
+std::string Parser::getArchitecture()
+{
+	return _architecture;
+}
+
 bool Parser::helperCommand()
 {
     std::cout << "usage: classCreator [Project Name] [-miMCdf] ..." << std::endl
@@ -63,10 +69,10 @@ bool Parser::helperCommand()
     return false;
 }
 
-void Parser::AVOptions(const std::string &s)
+void Parser::AVOptions(const std::vector<std::string> &v, const int i)
 {
-	for (int i = 1; s[i]; i++) {
-		switch (s[i]) {
+	for (int j = 1; v[i][j]; j++) {
+		switch (v[i][j]) {
 		case 'm' :
 			_main = true;
 			break;
@@ -85,6 +91,9 @@ void Parser::AVOptions(const std::string &s)
 		case 'd' :
 			_folders = true;
 			break;
+		case 'A' :
+			_architecture = v[i + 1];
+			break;
 		}
 	}
 }
@@ -98,7 +107,7 @@ bool Parser::parsingAV(const std::vector<std::string> &v)
 	_project_name = v[0];
 	for (unsigned int i = 1; i < v.size(); i++) {
 		if (v[i][0] == '-')
-			Parser::AVOptions(v[i]);
+			Parser::AVOptions(v, i);
 		else
 			_sub_files.push_back(v[i]);
 	}

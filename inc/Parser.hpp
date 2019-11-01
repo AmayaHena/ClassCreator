@@ -38,6 +38,7 @@ class Parser {
 		bool getMakefile();
 		bool getCMake();
 		bool getFolders();
+		std::string getArchitecture();
 
 	private:
 
@@ -50,7 +51,7 @@ class Parser {
 		bool parsingBoolean(std::string s);
 
 		/* Parsing AV */
-		void AVOptions(const std::string &s);
+		void AVOptions(const std::vector<std::string> &v, const int i);
 		bool parsingAV(const std::vector<std::string> &v);
 
 		/* Variables - Ressources for user inputs */
@@ -62,6 +63,7 @@ class Parser {
 		bool _makefile;
 		bool _cmake;
 		bool _folders;
+		std::string _architecture;
 
 };
 
