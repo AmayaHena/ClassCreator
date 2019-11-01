@@ -92,7 +92,7 @@ std::vector<std::string> File::loadFile(const std::string &path, const bool requ
 	return File::loadFileToV(path);
 }
 
-bool File::loadConfig(const bool main, const bool make, const bool cmake, const bool interface)
+bool File::loadConfig(Parser &p)
 {
 	if (checkDirExist("config") == false)
 		return false;
@@ -102,13 +102,13 @@ bool File::loadConfig(const bool main, const bool make, const bool cmake, const 
 	if (_fileHpp.empty() || _fileCpp.empty() || _header.empty())
 		return false;
 	_fileInterface = loadFile("config/interface.hpp", true);
-	_main = loadFile("config/main.cpp", main);
-	_make = loadFile("config/makefile", make);
-	_cmake = loadFile("config/CMakeLists.txt", cmake);
-	if ((main && _main.empty())
-		|| (make && _make.empty())
-		|| (cmake && _cmake.empty())
-		|| (interface && _fileInterface.empty()))
+	_main = loadFile("config/main.cpp", p.getMain());
+	_make = loadFile("config/makefile", p.getMakefile());
+	_cmake = loadFile("config/CMakeLists.txt", p.getCMake());
+	if ((p.getMain() && _main.empty())
+		|| (p.getMakefile() && _make.empty())
+		|| (p.getCMake() && _cmake.empty())
+		|| (p.getInterface() && _fileInterface.empty()))
 		return false;
 	return true;
 }

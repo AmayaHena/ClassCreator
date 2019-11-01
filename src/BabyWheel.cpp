@@ -51,10 +51,10 @@ bool BabyWheel::babyImprove()
 bool BabyWheel::unlock(std::vector<std::string> v)
 {
 	_v = v;
-	/* if (!babyCheck())
-		return false;
-	else */ if (!babyImprove())
-		return false;
+//	if (!babyCheck())
+//		return false;
+//	else if (!babyImprove())
+//		return false;
 	std::cout << "\033[1;32mBaby wheel complete\033[0m" << std::endl;
 	std::cout << "\033[1;32mYou'll have the full fonctionality of ClassCreator\033[0m" << std::endl;
 	printFile("config/.header");

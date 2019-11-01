@@ -14,6 +14,8 @@
 #include <fstream>
 #include <unistd.h>
 
+#include "Parser.hpp"
+
 class File {
 
 	public:
@@ -22,7 +24,7 @@ class File {
 		~File() = default;
 
 		/* Load Config public */
-		bool loadConfig(const bool main, const bool make, const bool cmake, const bool interface);
+		bool loadConfig(Parser &p);
 
 		/* Generic Tool to load file */
 		std::vector<std::string> loadFile(const std::string &path, const bool request);

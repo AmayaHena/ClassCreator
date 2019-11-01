@@ -7,7 +7,7 @@
 
 #include "Core.hpp"
 
-Core::Core(const std::vector<std::string> &v){ _p.parsingProceed(v); }
+Core::Core(const std::vector<std::string> &v) { _p.parsingProceed(v); }
 
 void Core::fillPath(const std::string &s)
 {
@@ -56,7 +56,7 @@ void Core::buildProject()
 
 bool Core::run()
 {
-	if (!_f.loadConfig(_p.getMain(), _p.getMakefile(), _p.getCMake(), _p.getInterface()))
+	if (!_f.loadConfig(_p))
 		return false;
 	if (_p.getMain())
 		_src.push_back("main.cpp");
