@@ -1,0 +1,3 @@
+Each new branch have to be seperate by an empty line
+
+Each new subdir of a branch MUST begin by a '-'
