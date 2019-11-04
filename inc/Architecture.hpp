@@ -23,7 +23,6 @@ class Architecture {
 
 		/* Tools for complex arch */
 		std::vector<std::string> completePartial(std::vector<std::string> &v);
-		std::vector<std::string> cleanVector(std::vector<std::string> &v);
 		std::vector<std::string> cutLine(std::string &s);
 
 	private:

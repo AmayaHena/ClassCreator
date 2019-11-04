@@ -7,6 +7,8 @@
 
 #include "Core.hpp"
 
+#include "Architecture.hpp"
+
 Core::Core(const std::vector<std::string> &v) { _p.parsingProceed(v); }
 
 void Core::fillPath(const std::string &s)
@@ -47,21 +49,35 @@ bool Core::architectCode()
 {
 	/* COMMENT THIS TO CONTINUE */
 	std::cout << "\033[1;31mCURRENTLY DEVLOPING THIS FEATURE\033[0m" << std::endl;
-	return true;
+/* 	return true; */
 	/* COMMENT THIS TO CONTINUE */
 
+	Architecture a;
 	std::vector<std::string> arch = _f.loadFile(_p.getArchitecture(), true);
 
-	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
+/* 	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
 	_s.createCppRoot(_p, _w, _f.getFileCpp(), _p.getProjectName());
 	if (_p.getInterface())
 		_s.createInterfaceRoot(_p, _w, _f.getFileInterface(), _p.getProjectName());
-	Core::fillPath(_p.getProjectName());
+	Core::fillPath(_p.getProjectName()); */
 	if (arch.empty())
 		return false;
 
+	std::cout << "--- DEBUG ---" << std::endl;
+	for (unsigned int i = 0; i <= arch.size(); i++)
+		std::cout << arch[i] << std::endl;
+	std::cout << std::endl;
+	std::vector<std::string> v = a.completePartial(arch);
+	std::cout << "--- DEBUG ---" << std::endl;
+	for (unsigned int i = 0; i <= v.size(); i++)
+		std::cout << v[i] << std::endl;
+
 	for (const std::string &s: arch) {
 		(void)s;
+/* 		std::cout << "--- DEBUG ---" << std::endl;
+		for (unsigned int i = 0; i <= v.size(); i++)
+			std::cout << v[i] << std::endl;
+		std::cout << std::endl; */
 		/// 1 - Complete partials lines in string of vector
 		/// if a line is empty delete it
 		///

@@ -7,46 +7,49 @@
 
 #include "Architecture.hpp"
 
+#include <algorithm>
+#include <cctype>
+#include <regex>
+
 std::vector<std::string> Architecture::completePartial(std::vector<std::string> &v)
 {
-    /// 1 - Complete partials lines in string of vector
-    /// if a line is empty delete it
-    ///
-    /// Example :
-    /// Item - Potion - Heal
-    ///               - Damage
-    ///(empty line)
-    /// Into :
-    /// *Project Name* - inc - Item - Potion - Heal
-    /// *Project Name* - src - Item - Potion - Heal
-    /// *Project Name* - inc - Item - Potion - Damage
-    /// *Project Name* - src - Item - Potion - Damage
-    ///
-    /// Algorithmic pseudo code :
-    /// If the current line is empty reset ressource and take the next line for ressources
-    /// Take the last '-' position on the line above
-    /// Take all the char before (we'll call it : std::string midle)
-    /// Take the current line delete all the ' ' (we'll call it : std::string end)
-    /// Push it into the vector will be return as :
-    /// *Project name* + "inc" + middle + end
-    /// *Project name* + "src" + middle + end
-
     std::vector<std::string> vector;
-    (void)vector;
-    (void)v;
+	std::string ref;
+	std::string buf;
+	int i = 0;
+	int j = 0;
+
+	for (const std::string &s : v) {
+		if (s[0] == '-') {
+			ref = s;
+			buf = s;
+		}
+		if (!s.empty() && s[0] != '-') {
+			i = ref.size();
+			j = 0;
+			while (s[j++] == ' ');
+			while (i + 1 != j - 1) {
+				while (ref[i--] != '-')
+					if (i <= 0)
+						break;
+				if (i <= 0)
+					break;
+				if (i + 1 == j - 1)
+					break;
+			}
+			buf = ref.substr(0, i) + s;
+		}
+		buf.erase(remove_if(buf.begin(), buf.end(), static_cast<int(*)(int)>(&std::isspace)),buf.end());
+		std::replace(buf.begin(), buf.end(), '-', '/');
+		if (!s.empty())
+ 			vector.push_back(buf);
+		buf = std::regex_replace(buf, std::regex("/"), " - ");
+		buf.erase(buf.begin());
+		ref = buf;
+	}
     return vector;
 }
 
-std::vector<std::string> Architecture::cleanVector(std::vector<std::string> &v)
-{
-    /// 2 - Delete all spaces & replace all '-' by '/'
-    /// By for loop range
-
-    std::vector<std::string> vector;
-    (void)vector;
-    (void)v;
-    return vector;
-}
 
 std::vector<std::string> Architecture::cutLine(std::string &s)
 {
