@@ -53,25 +53,25 @@ std::vector<std::string> Architecture::completePartial(std::vector<std::string> 
 
 std::vector<std::string> Architecture::cutLine(std::string &s)
 {
-    /// 3 - Send the current line to a cutter
-    /// Wich return a vector of string with a string by dir
-    ///
-    /// Example :
-    /// *Project Name*/inc/Item/Potion/Heal
-    /// *Project Name*/src/Item/Potion/Heal
-    /// Into :
-    /// (Considering, std::vector<std::string> v)
-    /// v[0] = *Project Name*
-    /// v[1] = "inc"
-    /// v[2] = "Item"
-    /// v[3] = "Potion"
-    /// v[4] = "Heal"
-    ///
-    /// v[0] = *Project Name*
-    /// v[1] = "src"
-    /// v[2] = "Item"
-    /// v[3] = "Potion"
-    /// v[4] = "Heal"
+	/// 2 - Send the current line to a cutter
+	/// Wich return a vector of string with a string by dir
+	///
+	/// Example :
+	/// /Item/Potion/Heal
+	/// /Item/Potion/Heal
+	/// Into :
+	/// (Considering, std::vector<std::string> v)
+	/// v[0] = *Project Name*
+	/// v[1] = "inc"
+	/// v[2] = "Item"
+	/// v[3] = "Potion"
+	/// v[4] = "Heal"
+	///
+	/// v[0] = *Project Name*
+	/// v[1] = "src"
+	/// v[2] = "Item"
+	/// v[3] = "Potion"
+	/// v[4] = "Heal"
 
     std::vector<std::string> vector;
     (void)vector;
