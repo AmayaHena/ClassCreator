@@ -11,6 +11,7 @@ set(SRCS
     src/Writer.cpp
     src/State.cpp
     src/BabyWheel.cpp
+    src/Architecture.cpp
     )
 
 set(HEADERS
@@ -21,6 +22,7 @@ set(HEADERS
     inc/Writer.hpp
     inc/State.hpp
     inc/BabyWheel.hpp
+    inc/Architecture.cpp
     )
 
 add_executable(classCreator ${SRCS} ${HEADERS})
