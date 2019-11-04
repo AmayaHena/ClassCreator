@@ -47,11 +47,7 @@ bool Core::generateCode()
 /* --- CURRENTLY IN DEVLOPEMENT --- */
 bool Core::architectCode()
 {
-	/* COMMENT THIS TO CONTINUE */
 	std::cout << "\033[1;31mCURRENTLY DEVLOPING THIS FEATURE\033[0m" << std::endl;
-/* 	return true; */
-	/* COMMENT THIS TO CONTINUE */
-
 	Architecture a;
 	std::vector<std::string> arch = _f.loadFile(_p.getArchitecture(), true);
 
@@ -63,52 +59,50 @@ bool Core::architectCode()
 	if (arch.empty())
 		return false;
 
+	/* --- DEBUG --- */
 	std::cout << "--- DEBUG ---" << std::endl;
 	for (unsigned int i = 0; i <= arch.size(); i++)
 		std::cout << arch[i] << std::endl;
 	std::cout << std::endl;
+	/* --- DEBUG --- */
+
 	std::vector<std::string> v = a.completePartial(arch);
+
+	/* --- DEBUG --- */
 	std::cout << "--- DEBUG ---" << std::endl;
 	for (unsigned int i = 0; i <= v.size(); i++)
 		std::cout << v[i] << std::endl;
+	/* --- DEBUG --- */
 
 	for (const std::string &s: arch) {
 		(void)s;
-/* 		std::cout << "--- DEBUG ---" << std::endl;
-		for (unsigned int i = 0; i <= v.size(); i++)
-			std::cout << v[i] << std::endl;
-		std::cout << std::endl; */
 		/// 1 - Complete partials lines in string of vector
 		/// if a line is empty delete it
+		/// clean lines here btw
 		///
 		/// Example :
 		/// Item - Potion - Heal
 		///               - Damage
 		///(empty line)
 		/// Into :
-		/// *Project Name* - inc - Item - Potion - Heal
-		/// *Project Name* - src - Item - Potion - Heal
-		/// *Project Name* - inc - Item - Potion - Damage
-		/// *Project Name* - src - Item - Potion - Damage
+		/// /Item/Potion/Heal
+		/// /Item/Potion/Damage
 		///
 		/// Algorithmic pseudo code :
 		/// If the current line is empty reset ressource and take the next line for ressources
 		/// Take the last '-' position on the line above
-		/// Take all the char before (we'll call it : std::string midle)
+		/// Take all the char before (we'll call it : std::string middle)
 		/// Take the current line delete all the ' ' (we'll call it : std::string end)
 		/// Push it into the vector will be return as :
-		/// *Project name* + "inc" + middle + end
-		/// *Project name* + "src" + middle + end
+		/// begin + end
+		/// begin + end
 
-		/// 2 - Delete all spaces & replace all '-' by '/'
-		/// By for loop range
-
-		/// 3 - Send the current line to a cutter
+		/// 2 - Send the current line to a cutter
 		/// Wich return a vector of string with a string by dir
 		///
 		/// Example :
-		/// *Project Name*/inc/Item/Potion/Heal
-		/// *Project Name*/src/Item/Potion/Heal
+		/// /Item/Potion/Heal
+		/// /Item/Potion/Heal
 		/// Into :
 		/// (Considering, std::vector<std::string> v)
 		/// v[0] = *Project Name*
@@ -123,7 +117,7 @@ bool Core::architectCode()
 		/// v[3] = "Potion"
 		/// v[4] = "Heal"
 
-		/// 4 - Create dir & file
+		/// 3 - Create dir & file
 		/// Read the vector v (as on the example above), by begining at i = 2
 		/// Create dir for it by following the return value of method of Dir object
 		/// create the file or not
