@@ -34,6 +34,12 @@ bool Core::generateCode()
 	for (const std::string &file: subfiles) {
 		_s.createHpp(_p, _w, _f.getFileHpp(), file);
 		_s.createCpp(_p, _w, _f.getFileCpp(), file);
+
+		/* --- DEBUG --- */
+		if (_p.getInterface())
+			std::cout << "THIS IS TRUE" << std::endl;
+		/* --- DEBUG --- */
+
 		if (_p.getInterface())
 			_s.createInterface(_p, _w, _f.getFileInterface(), file);
 		if (_p.getFolders())
@@ -52,11 +58,13 @@ bool Core::architectCode()
 	std::vector<std::string> arch = _f.loadFile(_p.getArchitecture(), true);
 
 	/* UNCOMMENT TO TEST */
-	/*_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
+	_d.createDir(_p.getProjectName(), "inc");
+	_d.createDir(_p.getProjectName(), "src");
+	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
 	_s.createCppRoot(_p, _w, _f.getFileCpp(), _p.getProjectName());
 	if (_p.getInterface())
 		_s.createInterfaceRoot(_p, _w, _f.getFileInterface(), _p.getProjectName());
-	Core::fillPath(_p.getProjectName()); */
+	Core::fillPath(_p.getProjectName());
 	/* UNCOMMENT TO TEST */
 
 	if (arch.empty())
@@ -89,11 +97,32 @@ bool Core::architectCode()
 		tmp = a.cutLine(s);
 
 		/* --- DEBUG --- */
-		std::cout << "--- B ---" << std::endl;
-		for (const std::string &r : tmp)
-			std::cout << "r : " << r << std::endl;
-		std::cout << "--- E ---" << std::endl << std::endl;
+		/* std::cout << "--- B ---" << std::endl;
+		for (const std::string &s : tmp)
+			std::cout << "s : " << s << std::endl;
+		std::cout << "--- E ---" << std::endl << std::endl; */
 		/* --- DEBUG --- */
+
+		std::string path;
+		std::string path_comp;
+
+		for (const std::string &s : tmp) {
+			path = path +  "/" + s;
+
+			std::cout << "path : " << path << std::endl;
+			std::cout << "path .hpp : " << _p.getProjectName() << "/inc" << path << "/" << s << ".hpp" << std::endl;
+			std::cout << "path .cpp : " << _p.getProjectName() << "/src" << path << "/" << s << ".cpp" << std::endl;
+
+			path_comp = _p.getProjectName() + "/inc" + path;
+			if (_d.createDir(path_comp)) {
+				std::cout << "CORE MSG : This dir " << path_comp << " does not exist" << std::endl;
+			}
+
+			path_comp = _p.getProjectName() + "/src" + path;
+			if (_d.createDir(path_comp)) {
+				std::cout << "CORE MSG : This dir " << path_comp << "  does not exist" << std::endl;
+			}
+		}
 
 		tmp.clear();
 	}
