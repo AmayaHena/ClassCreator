@@ -7,38 +7,42 @@
 
 #include "Architecture.hpp"
 
+/* STD LIB */
 #include <algorithm>
 #include <cctype>
 #include <regex>
+
+std::string Architecture::alignCut(std::string &ref, std::string s)
+{
+	int i = 0;
+	int j = 0;
+
+	i = ref.size();
+	j = 0;
+	while (s[j++] == ' ');
+	while (i + 1 != j - 1) {
+		while (ref[i--] != '-')
+			if (i <= 0)
+				break;
+		if (i <= 0)
+			break;
+		if (i + 1 == j - 1)
+			break;
+	}
+	return ref.substr(0, i) + s;
+}
 
 std::vector<std::string> Architecture::completePartial(std::vector<std::string> &v)
 {
     std::vector<std::string> vector;
 	std::string ref;
 	std::string buf;
-	int i = 0;
-	int j = 0;
 
 	for (const std::string &s : v) {
-		if (s[0] == '-') {
-			ref = s;
+		if (s[0] == '-')
 			buf = s;
-		}
-		if (!s.empty() && s[0] != '-') {
-			i = ref.size();
-			j = 0;
-			while (s[j++] == ' ');
-			while (i + 1 != j - 1) {
-				while (ref[i--] != '-')
-					if (i <= 0)
-						break;
-				if (i <= 0)
-					break;
-				if (i + 1 == j - 1)
-					break;
-			}
-			buf = ref.substr(0, i) + s;
-		}
+		if (!s.empty() && s[0] != '-')
+			buf = Architecture::alignCut(ref, s);
 		buf.erase(remove_if(buf.begin(), buf.end(), static_cast<int(*)(int)>(&std::isspace)),buf.end());
 		std::replace(buf.begin(), buf.end(), '-', '/');
 		if (!s.empty())

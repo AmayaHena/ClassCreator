@@ -27,6 +27,9 @@ class Architecture {
 
 	private:
 
+		/* Tool for completeParital Method */
+		std::string alignCut(std::string &ref, std::string s);
+
 };
 
 #endif /* !ARCHITECHTURE_HPP_ */
