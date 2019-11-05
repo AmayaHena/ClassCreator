@@ -104,44 +104,77 @@ bool Core::architectCode()
 		/* --- DEBUG --- */
 
 		std::string path;
+		std::string path_past = _p.getProjectName();
 		std::string path_comp;
 
-		for (const std::string &s : tmp) {
-			path = path +  "/" + s;
-
-			std::cout << "path : " << path << std::endl;
-			std::cout << "path .hpp : " << _p.getProjectName() << "/inc" << path << "/" << s << ".hpp" << std::endl;
-			std::cout << "path .cpp : " << _p.getProjectName() << "/src" << path << "/" << s << ".cpp" << std::endl;
-
-			path_comp = _p.getProjectName() + "/inc" + path;
-			if (_d.createDir(path_comp)) {
-				std::cout << "CORE MSG : This dir " << path_comp << " does not exist" << std::endl;
-			}
-
-			path_comp = _p.getProjectName() + "/src" + path;
-			if (_d.createDir(path_comp)) {
-				std::cout << "CORE MSG : This dir " << path_comp << "  does not exist" << std::endl;
-			}
-		}
-
-/* 		for (unsigned int i = 0; i <= tmp.size(); i++) {
+		/* --- DEBUG --- */
+		/* for (unsigned int i = 0; i < tmp.size(); i++)  {
 			path = path +  "/" + tmp[i];
 
+			std::cout << "--- BEGIN ---" << std::endl;
+			std::cout << "tmp[i] : " << tmp[i] << std::endl;
 			std::cout << "path : " << path << std::endl;
-			std::cout << "path .hpp : " << _p.getProjectName() << "/inc" << path << "/" << tmp[i] << ".hpp" << std::endl;
-			std::cout << "path .cpp : " << _p.getProjectName() << "/src" << path << "/" << tmp[i] << ".cpp" << std::endl;
+
+
+			std::cout << "HPP CREATE" << std::endl;
+			std::cout << "INH" << std::endl;
+			if (i == 0)
+				std::cout << "include : " << _p.getProjectName() << ".hpp" << std::endl;
+			else
+				std::cout << "include : " << path << "/" << tmp[i] <<".hpp" << std::endl;
+			if (i == 0)
+				std::cout << "inheritance : " << _p.getProjectName() << std::endl;
+			else
+				std::cout << "inheritance : " << tmp[i - 1] << std::endl;
+			std::cout << "INT" << std::endl;
+			if (i == 0)
+				std::cout << "include : " << "I" << _p.getProjectName() << ".hpp" << std::endl;
+			else
+				std::cout << "include : " << path << "/I" << tmp[i] << ".hpp" << std::endl;
+			if (i == 0)
+				std::cout << "inheritance : " << "I" << _p.getProjectName() << std::endl;
+			else
+				std::cout << "incheritance : " << "I" << tmp[i - 1] << std::endl;
+			std::cout << "--- END ---" << std::endl << std::endl << std::endl;
+
+
+			std::cout << "CPP CREATE" << std::endl;
+			std::cout << "INH" << std::endl;
+			std::cout << "inheritance : " << tmp[i] << std::endl;
+
+			std::cout << "INT" << std::endl;
+			std::cout << "inheritance : " << "I" << tmp[i] << std::endl;
+
+			std::cout << "GENERAL" << std::endl;
+			if (i == 0)
+				std::cout << "include : " <<  path << "/" << tmp[i] << "/I" << tmp[i] << ".hpp" << std::endl;
+			else
+				std::cout << "include : " << path << "/I" << tmp[i] << ".hpp" << std::endl;
+
+
+			std::cout << "INTERFACE CREATE" << std::endl;
+			std::cout << "INH" << std::endl;
+			if (i == 0)
+				std::cout << "include : " << "I" << _p.getProjectName() << ".hpp" << std::endl;
+			else
+				std::cout << "include : " << path_past << "/" << tmp[i - 1] << ".hpp" << std::endl;
+
+			if (i == 0)
+				std::cout << "inheritance : " << "I" << _p.getProjectName() << std::endl;
+			else
+				std::cout << "inheritance : " << "I" << tmp[i - 1] << std::endl;
+			std::cout << "--- END ---" << std::endl << std::endl << std::endl; */
+			/* --- DEBUG --- */
 
 			path_comp = _p.getProjectName() + "/inc" + path;
 			if (_d.createDir(path_comp)) {
-				std::cout << "CORE MSG : This dir " << path_comp << " does not exist" << std::endl;
 			}
 
 			path_comp = _p.getProjectName() + "/src" + path;
 			if (_d.createDir(path_comp)) {
-				std::cout << "CORE MSG : This dir " << path_comp << "  does not exist" << std::endl;
 			}
-		} */
-
+			path_past = path;
+		}
 		tmp.clear();
 	}
 	return true;
