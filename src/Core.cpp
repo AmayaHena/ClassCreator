@@ -44,14 +44,11 @@ bool Core::generateCode()
 	return true;
 }
 
-/* --- CURRENTLY IN DEVLOPEMENT --- */
 bool Core::architectCode()
 {
-	std::cout << "\033[1;31mCURRENTLY DEVLOPING THIS FEATURE\033[0m" << std::endl;
 	Architecture a;
 	std::vector<std::string> arch = _f.loadFile(_p.getArchitecture(), true);
 
-	/* UNCOMMENT TO TEST */
 	_d.createDir(_p.getProjectName(), "inc");
 	_d.createDir(_p.getProjectName(), "src");
 	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
@@ -59,113 +56,20 @@ bool Core::architectCode()
 	if (_p.getInterface())
 		_s.createInterfaceRoot(_p, _w, _f.getFileInterface(), _p.getProjectName());
 	Core::fillPath(_p.getProjectName());
-	/* UNCOMMENT TO TEST */
 
 	if (arch.empty())
 		return false;
 
-	/* --- DEBUG --- */
-	/* std::cout << "--- DEBUG ---" << std::endl;
-	for (unsigned int i = 0; i <= arch.size(); i++)
-		std::cout << arch[i] << std::endl;
-	std::cout << std::endl; */
-	/* --- DEBUG --- */
-
 	std::vector<std::string> arch_comp = a.completePartial(arch);
 	std::vector<std::string> tmp;
 
-	/* --- DEBUG --- */
-	/* std::cout << "--- DEBUG ---" << std::endl;
-	for (unsigned int i = 0; i <= arch_comp.size(); i++)
-		std::cout << arch_comp[i] << std::endl; */
-	/* --- DEBUG --- */
-
 	for (const std::string &s: arch_comp) {
-		/// 3 - Create dir & file
-		/// Read the vector v (as on the example above), by begining at i = 2
-		/// Create dir for it by following the return value of method of Dir object
-		/// create the file or not
-		/// If the creation of dir doesn t exsit call State object
-		/// to create the file, by sending all the ressources needed
-
 		tmp = a.cutLine(s);
-
-		/* --- DEBUG --- */
-		/* std::cout << "--- B ---" << std::endl;
-		for (const std::string &s : tmp)
-			std::cout << "s : " << s << std::endl;
-		std::cout << "--- E ---" << std::endl << std::endl; */
-		/* --- DEBUG --- */
-
 		std::string path;
 		std::string path_past = _p.getProjectName();
 
-		/* --- DEBUG --- */
 		for (unsigned int i = 0; i < tmp.size(); i++)  {
 			path = path +  "/" + tmp[i];
-
-			/* std::cout << "--- BEGIN ---" << std::endl;
-			std::cout << "tmp[i] : " << tmp[i] << std::endl;
-			std::cout << "path : " << path << std::endl;
-
-
-			std::cout << "HPP CREATE" << std::endl;
-			//  ressources needed : tmp, path, i
-			std::cout << "INH" << std::endl;
-			if (i == 0)
-				std::cout << "include : " << _p.getProjectName() << ".hpp" << std::endl;
-			else
-				std::cout << "include : " << path << "/" << tmp[i] << ".hpp" << std::endl;
-			if (i == 0)
-				std::cout << "inheritance : " << _p.getProjectName() << std::endl;
-			else
-				std::cout << "inheritance : " << tmp[i - 1] << std::endl;
-			std::cout << "INT" << std::endl;
-			if (i == 0)
-				std::cout << "include : " << "I" << _p.getProjectName() << ".hpp" << std::endl;
-			else
-				std::cout << "include : " << path << "/I" << tmp[i] << ".hpp" << std::endl;
-			if (i == 0)
-				std::cout << "inheritance : " << "I" << _p.getProjectName() << std::endl;
-			else
-				std::cout << "incheritance : " << "I" << tmp[i - 1] << std::endl;
-			std::cout <<  std::endl;
-
-
-			std::cout << "CPP CREATE" << std::endl;
-			//  ressources needed : tmp, path, i
-			std::cout << "INH" << std::endl;
-			if (i == 0)
-				std::cout << "inheritance : " << _p.getProjectName() << std::endl;
-			else
-				std::cout << "inheritance : " << tmp[i - 1] << std::endl;
-
-			std::cout << "INT" << std::endl;
-			std::cout << "inheritance : " << "I" << tmp[i] << std::endl;
-
-			std::cout << "GENERAL" << std::endl;
-			if (i == 0)
-				std::cout << "include : " <<  path << "/" << tmp[i] << "/" << tmp[i] << ".hpp" << std::endl;
-			else
-				std::cout << "include : " << path << "/" << tmp[i] << ".hpp" << std::endl;
-			std::cout <<  std::endl;
-
-
-			std::cout << "INTERFACE CREATE" << std::endl;
-			//  ressources needed : tmp, path, i, past_path
-			std::cout << "INH" << std::endl;
-			if (i == 0)
-				std::cout << "include : " << "I" << _p.getProjectName() << ".hpp" << std::endl;
-			else
-				std::cout << "include : " << path_past << "/" << tmp[i - 1] << ".hpp" << std::endl;
-
-			if (i == 0)
-				std::cout << "inheritance : " << "I" << _p.getProjectName() << std::endl;
-			else
-				std::cout << "inheritance : " << "I" << tmp[i - 1] << std::endl;
-			std::cout << "--- END ---" << std::endl << std::endl << std::endl; */
-			/* --- DEBUG --- */
-
 			if (_d.createDir(_p.getProjectName() + "/inc" + path)) {
 				_s.createHppArch(_p, _w, _f.getFileHpp(), tmp, path, i, path_past);
 				if (_p.getInterface())
@@ -177,20 +81,12 @@ bool Core::architectCode()
  				_s.createCppArch(_p, _w, _f.getFileCpp(), tmp, path, i);
 				_src.push_back("src" + path + "/" + tmp[i] + ".cpp");
 			}
-			/* if (i == 0) {
-				_inc.push_back("inc" + path + "/" + tmp[i] + ".hpp");
-				_src.push_back("src" + path + "/" + tmp[i] + ".cpp");
-			} else {
-				_inc.push_back("inc" + path + ".hpp");
-				_src.push_back("src" + path + ".cpp");
-			} */
 			path_past = path;
 		}
 		tmp.clear();
 	}
 	return true;
 }
-/* --- CURRENTLY IN DEVLOPEMENT --- */
 
 void Core::buildProject()
 {
