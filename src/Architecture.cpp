@@ -44,10 +44,9 @@ std::vector<std::string> Architecture::completePartial(std::vector<std::string> 
 		if (!s.empty() && s[0] != '-')
 			buf = Architecture::alignCut(ref, s);
 		buf.erase(remove_if(buf.begin(), buf.end(), static_cast<int(*)(int)>(&std::isspace)),buf.end());
-		std::replace(buf.begin(), buf.end(), '-', '/');
 		if (!s.empty())
  			vector.push_back(buf);
-		buf = std::regex_replace(buf, std::regex("/"), " - ");
+		buf = std::regex_replace(buf, std::regex("-"), " - ");
 		buf.erase(buf.begin());
 		ref = buf;
 	}
@@ -55,30 +54,13 @@ std::vector<std::string> Architecture::completePartial(std::vector<std::string> 
 }
 
 
-std::vector<std::string> Architecture::cutLine(std::string &s)
+std::vector<std::string> Architecture::cutLine(std::string s)
 {
-	/// 2 - Send the current line to a cutter
-	/// Wich return a vector of string with a string by dir
-	///
-	/// Example :
-	/// /Item/Potion/Heal
-	/// /Item/Potion/Heal
-	/// Into :
-	/// (Considering, std::vector<std::string> v)
-	/// v[0] = *Project Name*
-	/// v[1] = "inc"
-	/// v[2] = "Item"
-	/// v[3] = "Potion"
-	/// v[4] = "Heal"
-	///
-	/// v[0] = *Project Name*
-	/// v[1] = "src"
-	/// v[2] = "Item"
-	/// v[3] = "Potion"
-	/// v[4] = "Heal"
-
     std::vector<std::string> vector;
-    (void)vector;
-    (void)s;
-    return vector;
+
+	std::istringstream is(s);
+	while (std::getline(is, s, '-'))
+		vector.push_back(s);
+
+	return vector;
 }

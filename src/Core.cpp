@@ -74,48 +74,18 @@ bool Core::architectCode()
 		std::cout << v[i] << std::endl;
 	/* --- DEBUG --- */
 
-	for (const std::string &s: arch) {
+	for (const std::string &s: v) {
 		(void)s;
-		/// 1 - Complete partials lines in string of vector
-		/// if a line is empty delete it
-		/// clean lines here btw
-		///
-		/// Example :
-		/// Item - Potion - Heal
-		///               - Damage
-		///(empty line)
-		/// Into :
-		/// /Item/Potion/Heal
-		/// /Item/Potion/Damage
-		///
-		/// Algorithmic pseudo code :
-		/// If the current line is empty reset ressource and take the next line for ressources
-		/// Take the last '-' position on the line above
-		/// Take all the char before (we'll call it : std::string middle)
-		/// Take the current line delete all the ' ' (we'll call it : std::string end)
-		/// Push it into the vector will be return as :
-		/// begin + end
-		/// begin + end
 
-		/// 2 - Send the current line to a cutter
-		/// Wich return a vector of string with a string by dir
-		///
-		/// Example :
-		/// /Item/Potion/Heal
-		/// /Item/Potion/Heal
-		/// Into :
-		/// (Considering, std::vector<std::string> v)
-		/// v[0] = *Project Name*
-		/// v[1] = "inc"
-		/// v[2] = "Item"
-		/// v[3] = "Potion"
-		/// v[4] = "Heal"
-		///
-		/// v[0] = *Project Name*
-		/// v[1] = "src"
-		/// v[2] = "Item"
-		/// v[3] = "Potion"
-		/// v[4] = "Heal"
+		std::vector<std::string> vector = a.cutLine(s);
+
+		/* --- DEBUG --- */
+		vector.erase(vector.begin());
+		std::cout << "--- B ---" << std::endl;
+		for (const std::string &r : vector)
+			std::cout << "r : " << r << std::endl;
+		std::cout << "--- E ---" << std::endl << std::endl;
+		/* --- DEBUG --- */
 
 		/// 3 - Create dir & file
 		/// Read the vector v (as on the example above), by begining at i = 2
