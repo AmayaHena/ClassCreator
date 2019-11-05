@@ -124,6 +124,24 @@ bool Core::architectCode()
 			}
 		}
 
+/* 		for (unsigned int i = 0; i <= tmp.size(); i++) {
+			path = path +  "/" + tmp[i];
+
+			std::cout << "path : " << path << std::endl;
+			std::cout << "path .hpp : " << _p.getProjectName() << "/inc" << path << "/" << tmp[i] << ".hpp" << std::endl;
+			std::cout << "path .cpp : " << _p.getProjectName() << "/src" << path << "/" << tmp[i] << ".cpp" << std::endl;
+
+			path_comp = _p.getProjectName() + "/inc" + path;
+			if (_d.createDir(path_comp)) {
+				std::cout << "CORE MSG : This dir " << path_comp << " does not exist" << std::endl;
+			}
+
+			path_comp = _p.getProjectName() + "/src" + path;
+			if (_d.createDir(path_comp)) {
+				std::cout << "CORE MSG : This dir " << path_comp << "  does not exist" << std::endl;
+			}
+		} */
+
 		tmp.clear();
 	}
 	return true;
