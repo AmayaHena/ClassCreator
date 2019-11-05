@@ -8,7 +8,7 @@
 #include "Parser.hpp"
 #include "BabyWheel.hpp"
 
-Parser::Parser() : _main(false), _inheritance(false), _makefile(false), _cmake(false), _folders(false) {}
+Parser::Parser() : _main(false), _interface(false), _inheritance(false), _makefile(false), _cmake(false), _folders(false) {}
 
 std::string Parser::getProjectName(void)
 {
