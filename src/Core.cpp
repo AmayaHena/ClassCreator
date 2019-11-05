@@ -51,48 +51,51 @@ bool Core::architectCode()
 	Architecture a;
 	std::vector<std::string> arch = _f.loadFile(_p.getArchitecture(), true);
 
-/* 	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
+	/* UNCOMMENT TO TEST */
+	/*_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
 	_s.createCppRoot(_p, _w, _f.getFileCpp(), _p.getProjectName());
 	if (_p.getInterface())
 		_s.createInterfaceRoot(_p, _w, _f.getFileInterface(), _p.getProjectName());
 	Core::fillPath(_p.getProjectName()); */
+	/* UNCOMMENT TO TEST */
+
 	if (arch.empty())
 		return false;
 
 	/* --- DEBUG --- */
-	std::cout << "--- DEBUG ---" << std::endl;
+	/* std::cout << "--- DEBUG ---" << std::endl;
 	for (unsigned int i = 0; i <= arch.size(); i++)
 		std::cout << arch[i] << std::endl;
-	std::cout << std::endl;
+	std::cout << std::endl; */
 	/* --- DEBUG --- */
 
-	std::vector<std::string> v = a.completePartial(arch);
+	std::vector<std::string> arch_comp = a.completePartial(arch);
+	std::vector<std::string> tmp;
 
 	/* --- DEBUG --- */
-	std::cout << "--- DEBUG ---" << std::endl;
-	for (unsigned int i = 0; i <= v.size(); i++)
-		std::cout << v[i] << std::endl;
+	/* std::cout << "--- DEBUG ---" << std::endl;
+	for (unsigned int i = 0; i <= arch_comp.size(); i++)
+		std::cout << arch_comp[i] << std::endl; */
 	/* --- DEBUG --- */
 
-	for (const std::string &s: v) {
-		(void)s;
-
-		std::vector<std::string> vector = a.cutLine(s);
-
-		/* --- DEBUG --- */
-		vector.erase(vector.begin());
-		std::cout << "--- B ---" << std::endl;
-		for (const std::string &r : vector)
-			std::cout << "r : " << r << std::endl;
-		std::cout << "--- E ---" << std::endl << std::endl;
-		/* --- DEBUG --- */
-
+	for (const std::string &s: arch_comp) {
 		/// 3 - Create dir & file
 		/// Read the vector v (as on the example above), by begining at i = 2
 		/// Create dir for it by following the return value of method of Dir object
 		/// create the file or not
 		/// If the creation of dir doesn t exsit call State object
 		/// to create the file, by sending all the ressources needed
+
+		tmp = a.cutLine(s);
+
+		/* --- DEBUG --- */
+		std::cout << "--- B ---" << std::endl;
+		for (const std::string &r : tmp)
+			std::cout << "r : " << r << std::endl;
+		std::cout << "--- E ---" << std::endl << std::endl;
+		/* --- DEBUG --- */
+
+		tmp.clear();
 	}
 	return true;
 }

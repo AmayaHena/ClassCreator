@@ -61,6 +61,6 @@ std::vector<std::string> Architecture::cutLine(std::string s)
 	std::istringstream is(s);
 	while (std::getline(is, s, '-'))
 		vector.push_back(s);
-
+	vector.erase(vector.begin());
 	return vector;
 }
