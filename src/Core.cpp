@@ -50,6 +50,8 @@ bool Core::architectCode()
 	Architecture a;
 	std::vector<std::string> arch = _f.loadFile(_p.getArchitecture(), true);
 
+	if (arch.empty())
+		return false;
 	_d.createDir(_p.getProjectName(), "inc");
 	_d.createDir(_p.getProjectName(), "src");
 	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
@@ -58,17 +60,13 @@ bool Core::architectCode()
 		_s.createInterfaceRoot(_p, _w, _f.getFileInterface(), _p.getProjectName());
 	Core::fillPath(_p.getProjectName());
 
-	if (arch.empty())
-		return false;
-
 	std::vector<std::string> arch_comp = a.completePartial(arch);
 	std::vector<std::string> tmp;
+	std::string path;
+	std::string path_past = _p.getProjectName();
 
 	for (const std::string &s: arch_comp) {
 		tmp = a.cutLine(s);
-		std::string path;
-		std::string path_past = _p.getProjectName();
-
 		for (unsigned int i = 0; i < tmp.size(); i++)  {
 			path = path +  "/" + tmp[i];
 			if (_d.createDir(_p.getProjectName() + "/inc" + path)) {
@@ -77,7 +75,6 @@ bool Core::architectCode()
 					_s.createInterfaceArch(_p, _w, _f.getFileInterface(), tmp, path, i, path_past);
 				_inc.push_back("inc" + path + "/" + tmp[i] + ".hpp");
 			}
-
 			if (_d.createDir(_p.getProjectName() + "/src" + path)) {
  				_s.createCppArch(_p, _w, _f.getFileCpp(), tmp, path, i);
 				_src.push_back("src" + path + "/" + tmp[i] + ".cpp");
