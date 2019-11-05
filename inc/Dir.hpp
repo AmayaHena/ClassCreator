@@ -17,6 +17,7 @@ class Dir {
 
 		/* Create Dirs */
 		bool createDir(const std::string &path, const std::string &name);
+		bool createDir(const std::string &s);
 
 };
 
