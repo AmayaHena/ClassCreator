@@ -7,6 +7,7 @@
 
 #include "Core.hpp"
 
+/* CLASS */
 #include "Architecture.hpp"
 
 Core::Core(const std::vector<std::string> &v) { _p.parsingProceed(v); }
