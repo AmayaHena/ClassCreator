@@ -62,33 +62,64 @@ void State::createInterface(Parser &p, Writer &w, const std::vector<std::string>
 
 
 
-void State::createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s, const std::string &path, const std::string &inh)
+void State::createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i)
 {
-	(void)p;
-	(void)w;
-	(void)file;
-	(void)s;
-	(void)path;
-	(void)inh;
-	return;
+	w.setFile(file);
+
+	if (p.getInheritance() && !p.getInterface()) {
+		if (i == 0) {
+			w.setInclude(p.getProjectName() + ".hpp");
+			w.setInheritance(p.getProjectName());
+		} else {
+			w.setInclude(path + "/" + tmp[i] + ".hpp");
+			w.setInheritance(tmp[i - 1]);
+		}
+	}
+	if (p.getInterface()) {
+		if (i == 0) {
+			w.setInclude("I" + p.getProjectName() + ".hpp");
+			w.setInheritance("I" + p.getProjectName());
+		} else {
+			w.setInclude(path + "/I" + tmp[i] + ".hpp");
+			w.setInheritance("I" + tmp[i - 1]);
+		}
+	}
+	w.create(tmp[i], p.getProjectName() + "/inc" + path, ".hpp");
 }
 
-void State::createCppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
+void State::createCppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i)
 {
-	(void)p;
-	(void)w;
-	(void)file;
-	(void)s;
-	return;
+	w.setFile(file);
+
+	if (p.getInheritance()) {
+		if (i == 0)
+			w.setInheritance(p.getProjectName());
+		else
+			w.setInheritance(tmp[i - 1]);
+	}
+	if (p.getInterface())
+		w.setInheritance("I" + tmp[i]);
+	if (i == 0)
+		w.setInclude(path + "/" + tmp[i] + "/" + tmp[i] + ".hpp");
+	else
+		w.setInclude(path + "/" + tmp[i] + ".hpp");
+	w.create(tmp[i], p.getProjectName() + "/src" + path, ".cpp");
 }
 
-void State::createInterfaceArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
+void State::createInterfaceArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i, std::string &past_path)
 {
-	(void)p;
-	(void)w;
-	(void)file;
-	(void)s;
-	return;
+	w.setFile(file);
+
+	if (p.getInheritance()) {
+		if (i == 0) {
+			w.setInclude("I" + p.getProjectName() + ".hpp");
+			w.setInheritance("I" + p.getProjectName());
+		} else {
+			w.setInclude(past_path + "/" + tmp[i - 1] + ".hpp");
+			w.setInheritance("I" + tmp[i - 1]);
+		}
+	}
+	w.create("I" + tmp[i], p.getProjectName() + "/inc" + path, ".hpp");
 }
 
 

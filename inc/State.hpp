@@ -31,9 +31,9 @@ class State {
 		void createInterface(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
 
 		/* CPP HPP Interface for complex arch */
-		void createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s, const std::string &path, const std::string &inh);
-		void createCppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
-		void createInterfaceArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
+		void createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i);
+		void createCppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i);
+		void createInterfaceArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i, std::string &past_path);
 
 		/* CPP HPP Interface at Root */
 		void createHppRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);

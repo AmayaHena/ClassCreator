@@ -108,20 +108,21 @@ bool Core::architectCode()
 		std::string path_comp;
 
 		/* --- DEBUG --- */
-		/* for (unsigned int i = 0; i < tmp.size(); i++)  {
+		for (unsigned int i = 0; i < tmp.size(); i++)  {
 			path = path +  "/" + tmp[i];
 
-			std::cout << "--- BEGIN ---" << std::endl;
+			/* std::cout << "--- BEGIN ---" << std::endl;
 			std::cout << "tmp[i] : " << tmp[i] << std::endl;
 			std::cout << "path : " << path << std::endl;
 
 
 			std::cout << "HPP CREATE" << std::endl;
+			//  ressources needed : tmp, path, i
 			std::cout << "INH" << std::endl;
 			if (i == 0)
 				std::cout << "include : " << _p.getProjectName() << ".hpp" << std::endl;
 			else
-				std::cout << "include : " << path << "/" << tmp[i] <<".hpp" << std::endl;
+				std::cout << "include : " << path << "/" << tmp[i] << ".hpp" << std::endl;
 			if (i == 0)
 				std::cout << "inheritance : " << _p.getProjectName() << std::endl;
 			else
@@ -135,24 +136,30 @@ bool Core::architectCode()
 				std::cout << "inheritance : " << "I" << _p.getProjectName() << std::endl;
 			else
 				std::cout << "incheritance : " << "I" << tmp[i - 1] << std::endl;
-			std::cout << "--- END ---" << std::endl << std::endl << std::endl;
+			std::cout <<  std::endl;
 
 
 			std::cout << "CPP CREATE" << std::endl;
+			//  ressources needed : tmp, path, i
 			std::cout << "INH" << std::endl;
-			std::cout << "inheritance : " << tmp[i] << std::endl;
+			if (i == 0)
+				std::cout << "inheritance : " << _p.getProjectName() << std::endl;
+			else
+				std::cout << "inheritance : " << tmp[i - 1] << std::endl;
 
 			std::cout << "INT" << std::endl;
 			std::cout << "inheritance : " << "I" << tmp[i] << std::endl;
 
 			std::cout << "GENERAL" << std::endl;
 			if (i == 0)
-				std::cout << "include : " <<  path << "/" << tmp[i] << "/I" << tmp[i] << ".hpp" << std::endl;
+				std::cout << "include : " <<  path << "/" << tmp[i] << "/" << tmp[i] << ".hpp" << std::endl;
 			else
-				std::cout << "include : " << path << "/I" << tmp[i] << ".hpp" << std::endl;
+				std::cout << "include : " << path << "/" << tmp[i] << ".hpp" << std::endl;
+			std::cout <<  std::endl;
 
 
 			std::cout << "INTERFACE CREATE" << std::endl;
+			//  ressources needed : tmp, path, i, past_path
 			std::cout << "INH" << std::endl;
 			if (i == 0)
 				std::cout << "include : " << "I" << _p.getProjectName() << ".hpp" << std::endl;
