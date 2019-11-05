@@ -62,27 +62,28 @@ void State::createInterface(Parser &p, Writer &w, const std::vector<std::string>
 
 
 
-void State::createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i)
+void State::createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i, std::string &past_path)
 {
 	w.setFile(file);
+
+	std::string path_no_slash = path;
+	path_no_slash.erase(path_no_slash.begin());
+
+	std::string past_path_no_slash = past_path;
+	past_path_no_slash.erase(past_path_no_slash.begin());
 
 	if (p.getInheritance() && !p.getInterface()) {
 		if (i == 0) {
 			w.setInclude(p.getProjectName() + ".hpp");
 			w.setInheritance(p.getProjectName());
 		} else {
-			w.setInclude(path + "/" + tmp[i] + ".hpp");
+			w.setInclude(past_path_no_slash + "/" + tmp[i - 1] + ".hpp");
 			w.setInheritance(tmp[i - 1]);
 		}
 	}
 	if (p.getInterface()) {
-		if (i == 0) {
-			w.setInclude("I" + p.getProjectName() + ".hpp");
-			w.setInheritance("I" + p.getProjectName());
-		} else {
-			w.setInclude(path + "/I" + tmp[i] + ".hpp");
-			w.setInheritance("I" + tmp[i - 1]);
-		}
+		w.setInclude(path_no_slash + "/I" + tmp[i] + ".hpp");
+		w.setInheritance("I" + tmp[i]);
 	}
 	w.create(tmp[i], p.getProjectName() + "/inc" + path, ".hpp");
 }
@@ -90,6 +91,9 @@ void State::createHppArch(Parser &p, Writer &w, const std::vector<std::string> &
 void State::createCppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i)
 {
 	w.setFile(file);
+
+	std::string path_no_slash = path;
+	path_no_slash.erase(path_no_slash.begin());
 
 	if (p.getInheritance()) {
 		if (i == 0)
@@ -100,9 +104,9 @@ void State::createCppArch(Parser &p, Writer &w, const std::vector<std::string> &
 	if (p.getInterface())
 		w.setInheritance("I" + tmp[i]);
 	if (i == 0)
-		w.setInclude(path + "/" + tmp[i] + "/" + tmp[i] + ".hpp");
+		w.setInclude(path_no_slash + "/" + tmp[i] + ".hpp");
 	else
-		w.setInclude(path + "/" + tmp[i] + ".hpp");
+		w.setInclude(path_no_slash + "/" + tmp[i] + ".hpp");
 	w.create(tmp[i], p.getProjectName() + "/src" + path, ".cpp");
 }
 
@@ -110,12 +114,15 @@ void State::createInterfaceArch(Parser &p, Writer &w, const std::vector<std::str
 {
 	w.setFile(file);
 
+	std::string path_no_slash = past_path;
+	path_no_slash.erase(path_no_slash.begin());
+
 	if (p.getInheritance()) {
 		if (i == 0) {
 			w.setInclude("I" + p.getProjectName() + ".hpp");
 			w.setInheritance("I" + p.getProjectName());
 		} else {
-			w.setInclude(past_path + "/" + tmp[i - 1] + ".hpp");
+			w.setInclude(path_no_slash + "/" + "I" + tmp[i - 1] + ".hpp");
 			w.setInheritance("I" + tmp[i - 1]);
 		}
 	}

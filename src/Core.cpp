@@ -34,12 +34,6 @@ bool Core::generateCode()
 	for (const std::string &file: subfiles) {
 		_s.createHpp(_p, _w, _f.getFileHpp(), file);
 		_s.createCpp(_p, _w, _f.getFileCpp(), file);
-
-		/* --- DEBUG --- */
-		if (_p.getInterface())
-			std::cout << "THIS IS TRUE" << std::endl;
-		/* --- DEBUG --- */
-
 		if (_p.getInterface())
 			_s.createInterface(_p, _w, _f.getFileInterface(), file);
 		if (_p.getFolders())
@@ -105,7 +99,6 @@ bool Core::architectCode()
 
 		std::string path;
 		std::string path_past = _p.getProjectName();
-		std::string path_comp;
 
 		/* --- DEBUG --- */
 		for (unsigned int i = 0; i < tmp.size(); i++)  {
@@ -173,13 +166,24 @@ bool Core::architectCode()
 			std::cout << "--- END ---" << std::endl << std::endl << std::endl; */
 			/* --- DEBUG --- */
 
-			path_comp = _p.getProjectName() + "/inc" + path;
-			if (_d.createDir(path_comp)) {
+			if (_d.createDir(_p.getProjectName() + "/inc" + path)) {
+				_s.createHppArch(_p, _w, _f.getFileHpp(), tmp, path, i, path_past);
+				if (_p.getInterface())
+					_s.createInterfaceArch(_p, _w, _f.getFileInterface(), tmp, path, i, path_past);
+				_inc.push_back("inc" + path + "/" + tmp[i] + ".hpp");
 			}
 
-			path_comp = _p.getProjectName() + "/src" + path;
-			if (_d.createDir(path_comp)) {
+			if (_d.createDir(_p.getProjectName() + "/src" + path)) {
+ 				_s.createCppArch(_p, _w, _f.getFileCpp(), tmp, path, i);
+				_src.push_back("src" + path + "/" + tmp[i] + ".cpp");
 			}
+			/* if (i == 0) {
+				_inc.push_back("inc" + path + "/" + tmp[i] + ".hpp");
+				_src.push_back("src" + path + "/" + tmp[i] + ".cpp");
+			} else {
+				_inc.push_back("inc" + path + ".hpp");
+				_src.push_back("src" + path + ".cpp");
+			} */
 			path_past = path;
 		}
 		tmp.clear();
