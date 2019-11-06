@@ -60,8 +60,6 @@ void State::createInterface(Parser &p, Writer &w, const std::vector<std::string>
 	w.create("I" + s, p.getProjectName() + "/inc", ".hpp");
 }
 
-
-
 void State::createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i, std::string &past_path)
 {
 	w.setFile(file);
@@ -128,8 +126,6 @@ void State::createInterfaceArch(Parser &p, Writer &w, const std::vector<std::str
 	}
 	w.create("I" + tmp[i], p.getProjectName() + "/inc" + path, ".hpp");
 }
-
-
 
 void State::createHppRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
 {

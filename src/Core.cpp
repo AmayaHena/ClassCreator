@@ -62,11 +62,11 @@ bool Core::architectCode()
 
 	std::vector<std::string> arch_comp = a.completePartial(arch);
 	std::vector<std::string> tmp;
-	std::string path;
-	std::string path_past = _p.getProjectName();
 
 	for (const std::string &s: arch_comp) {
 		tmp = a.cutLine(s);
+		std::string path;
+		std::string path_past = _p.getProjectName();
 		for (unsigned int i = 0; i < tmp.size(); i++)  {
 			path = path +  "/" + tmp[i];
 			if (_d.createDir(_p.getProjectName() + "/inc" + path)) {
