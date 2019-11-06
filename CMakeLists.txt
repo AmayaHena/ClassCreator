@@ -22,7 +22,7 @@ set(HEADERS
     inc/Writer.hpp
     inc/State.hpp
     inc/BabyWheel.hpp
-    inc/Architecture.cpp
+    inc/Architecture.hpp
     )
 
 add_executable(classCreator ${SRCS} ${HEADERS})
