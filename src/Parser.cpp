@@ -56,7 +56,7 @@ std::string Parser::getArchitecture()
 
 bool Parser::helperCommand()
 {
-    std::cout << "usage: classCreator [Project Name] [-miMCdf] ..." << std::endl
+    std::cout << "usage: classCreator [Project Name] [-miMCdfA] ..." << std::endl
               << std::endl << "\tOptions:" << std::endl
               << "\t-m\tmake a main function" << std::endl
               << "\t-i\tmake inheritance from the main class of the project" << std::endl
@@ -64,7 +64,8 @@ bool Parser::helperCommand()
               << "\t-M\tmake a makefile" << std::endl
               << "\t-C\tmake CMakeLists.txt for CMake" << std::endl
               << "\t-d\tmake directory for classes" << std::endl
-              << "\t-f\tmake some subfiles for your project, muste be follow by subfiles name" << std::endl << std::endl;
+              << "\t-f\tmake some subfiles for your project, muste be follow by subfiles name" << std::endl
+              << "\t-A\ttake a file as parameter following this option and generate an architecture" << std::endl << std::endl;
     return false;
 }
 
