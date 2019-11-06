@@ -1,3 +1,68 @@
-Each new branch have to be seperate by an empty line
+Here is some exmplanation about the file format to use the 'A' option
+You can find a complete example of file in : doc/exampleArch.txt
 
-Each new subdir of a branch MUST begin by a '-'
+Waraning : Each name of dir must be in only one Word (use PascalCase)
+
+To understand the file format, this file :
+
+---
+- GameObject - Potion - Heal
+                      - Damage
+             - Player
+             - Enemy
+             - Weapon - Axe
+                      - Sword
+                      - Rock
+---
+
+Will give you this architecture :
+
+---
+*projectName*/inc/GameObject/Potion/Heal
+*projectName*/inc/GameObject/Potion/Damage
+*projectName*/inc/GameObject/Player
+*projectName*/inc/GameObject/Enemy
+*projectName*/inc/GameObject/Weapon/Axe
+*projectName*/inc/GameObject/Sword
+*projectName*/inc/GameObject/Rock
+
+*projectName*/src/GameObject/Potion/Heal
+*projectName*/src/GameObject/Potion/Damage
+*projectName*/src/GameObject/Player
+*projectName*/src/GameObject/Enemy
+*projectName*/src/GameObject/Weapon/Axe
+*projectName*/src/GameObject/Sword
+*projectName*/src/GameObject/Rock
+---
+
+Each new branch have to be seperate by an empty line
+Example :
+---
+- GameObject - Potion - Heal
+                      - Damage
+
+- Communication - TeamChat
+                - VocalChat
+
+- Graphic - Menu
+          - Game
+---
+
+For each new dir there is a '-' with white space if there is a name on the side
+The '-' must be algin with the other dirs
+Example :
+---
+- GameObject - Potion - Heal
+                      - Damage
+             - Weapon - Axe
+                      - Sword
+                      - Rock
+             - NPC - Friendly - King
+                              - Random
+                              - Monster
+                              - Waifu
+                   - Enemy - Monster - KingMonster
+                                     - Random
+                           - Wolf - KingWolf
+                                  - FluffyWolf
+---
