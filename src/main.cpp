@@ -9,7 +9,6 @@
 #include <functional>
 
 #include "Core.hpp"
-#include "BabyWheel.hpp"
 
 int main(int ac, char **av)
 {

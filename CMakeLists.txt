@@ -10,7 +10,6 @@ set(SRCS
     src/Parser.cpp
     src/Writer.cpp
     src/State.cpp
-    src/BabyWheel.cpp
     src/Architecture.cpp
     )
 
@@ -21,7 +20,6 @@ set(HEADERS
     inc/Parser.hpp
     inc/Writer.hpp
     inc/State.hpp
-    inc/BabyWheel.hpp
     inc/Architecture.hpp
     )
 
