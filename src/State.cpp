@@ -7,7 +7,7 @@
 
 #include "State.hpp"
 
-void State::createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i, std::string &past_path)
+void State::createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, const std::string &path, unsigned int i, const std::string &past_path)
 {
 	w.setFile(file);
 
@@ -33,7 +33,7 @@ void State::createHppArch(Parser &p, Writer &w, const std::vector<std::string> &
 	w.create(tmp[i], p.getProjectName() + "/inc" + path, ".hpp");
 }
 
-void State::createCppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i)
+void State::createCppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, const std::string &path, unsigned int i)
 {
 	w.setFile(file);
 
@@ -55,7 +55,7 @@ void State::createCppArch(Parser &p, Writer &w, const std::vector<std::string> &
 	w.create(tmp[i], p.getProjectName() + "/src" + path, ".cpp");
 }
 
-void State::createInterfaceArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i, std::string &past_path)
+void State::createInterfaceArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, const std::string &path, unsigned int i, const std::string &past_path)
 {
 	w.setFile(file);
 

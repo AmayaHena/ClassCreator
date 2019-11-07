@@ -27,9 +27,9 @@ class State {
 		/* Tools - state the writer and launch writer */
 
 		/* CPP HPP Interface for complex arch */
-		void createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i, std::string &past_path);
-		void createCppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i);
-		void createInterfaceArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i, std::string &past_path);
+		void createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, const std::string &path, unsigned int i, const std::string &past_path);
+		void createCppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, const std::string &path, unsigned int i);
+		void createInterfaceArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, const std::string &path, unsigned int i, const std::string &past_path);
 
 		/* CPP HPP Interface at Root */
 		void createHppRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
