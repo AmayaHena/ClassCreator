@@ -12,7 +12,7 @@
 #include <cctype>
 #include <regex>
 
-std::string Architecture::alignCut(std::string &ref, std::string s)
+std::string Architecture::alignCut(const std::string &ref, const std::string s)
 {
 	int i = 0;
 	int j = 0;
@@ -32,7 +32,7 @@ std::string Architecture::alignCut(std::string &ref, std::string s)
 	return ref.substr(0, i) + s;
 }
 
-std::vector<std::string> Architecture::completePartial(std::vector<std::string> &v)
+std::vector<std::string> Architecture::completePartial(const std::vector<std::string> &v)
 {
     std::vector<std::string> vector;
 	std::string ref;

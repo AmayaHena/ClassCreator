@@ -21,7 +21,6 @@
 #include "Parser.hpp"
 #include "Writer.hpp"
 #include "State.hpp"
-#include "Architecture.hpp"
 
 class Core {
 
@@ -35,10 +34,12 @@ class Core {
 
 	private:
 
+		/* Fill Path for Ressources _inc and _src */
+		void fillPath(const std::string &s);
+
 		/* Generation Folders and Files */
-		bool architectCode(const std::vector<std::string> &arch_comp);
-		void minimalCode();
 		bool generateCode();
+		bool architectCode();
 
 		/* tools */
 		void buildProject();
@@ -49,14 +50,10 @@ class Core {
 		File _f;
 		Writer _w;
 		State _s;
-		Architecture _a;
 
 		/* Variables - Ressource to build project */
 		std::vector<std::string> _inc;
 		std::vector<std::string> _src;
-
-		/* Variables - Ressource for subfiles */
-		std::vector<std::string> _arch;
 
 };
 

@@ -22,13 +22,13 @@ class Architecture {
 		~Architecture() = default;
 
 		/* Tools for complex arch */
-		std::vector<std::string> completePartial(std::vector<std::string> &v);
+		std::vector<std::string> completePartial(const std::vector<std::string> &v);
 		std::vector<std::string> cutLine(std::string s);
 
 	private:
 
 		/* Tool for completeParital Method */
-		std::string alignCut(std::string &ref, std::string s);
+		std::string alignCut(const std::string &ref, const std::string s);
 
 };
 
