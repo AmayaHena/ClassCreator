@@ -16,54 +16,15 @@ void Core::fillPath(const std::string &s)
 	_src.push_back("src/" + s + ".cpp");
 }
 
-bool Core::generateCode()
-{
-	_d.createDir(_p.getProjectName(), "inc");
-	_d.createDir(_p.getProjectName(), "src");
-
-	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
-	_s.createCppRoot(_p, _w, _f.getFileCpp(), _p.getProjectName());
-	if (_p.getInterface())
-		_s.createInterfaceRoot(_p, _w, _f.getFileInterface(), _p.getProjectName());
-	Core::fillPath(_p.getProjectName());
-	if (_p.getSubFiles().size() <= 0)
-		return true;
-
-	std::vector<std::string> subfiles = _p.getSubFiles();
-	for (const std::string &file: subfiles) {
-		_s.createHpp(_p, _w, _f.getFileHpp(), file);
-		_s.createCpp(_p, _w, _f.getFileCpp(), file);
-		if (_p.getInterface())
-			_s.createInterface(_p, _w, _f.getFileInterface(), file);
-		if (_p.getFolders())
-			Core::fillPath(file + "/" + file);
-		else
-			Core::fillPath(file);
-	}
-	return true;
-}
-
 bool Core::architectCode()
 {
 	Architecture a;
-	std::vector<std::string> arch = _f.loadFile(_p.getArchitecture(), true);
-
-	if (arch.empty())
-		return false;
-	_d.createDir(_p.getProjectName(), "inc");
-	_d.createDir(_p.getProjectName(), "src");
-	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
-	_s.createCppRoot(_p, _w, _f.getFileCpp(), _p.getProjectName());
-	if (_p.getInterface())
-		_s.createInterfaceRoot(_p, _w, _f.getFileInterface(), _p.getProjectName());
-	Core::fillPath(_p.getProjectName());
-
-	std::vector<std::string> arch_comp = a.completePartial(arch);
+	std::vector<std::string> arch_comp = a.completePartial(_arch);
 	std::vector<std::string> tmp;
+	std::string path;
 
 	for (const std::string &s: arch_comp) {
 		tmp = a.cutLine(s);
-		std::string path;
 		std::string path_past = _p.getProjectName();
 		for (unsigned int i = 0; i < tmp.size(); i++)  {
 			path = path +  "/" + tmp[i];
@@ -78,9 +39,42 @@ bool Core::architectCode()
 				_src.push_back("src" + path + "/" + tmp[i] + ".cpp");
 			}
 			path_past = path;
+			path.clear();
 		}
 		tmp.clear();
 	}
+	return true;
+}
+
+void Core::minimalCode()
+{
+	if (_p.getMain())
+		_src.push_back("main.cpp");
+	_w.setHeader(_f.getHeader());
+	_d.createDir(".", _p.getProjectName());
+	_d.createDir(_p.getProjectName(), "inc");
+	_d.createDir(_p.getProjectName(), "src");
+	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
+	_s.createCppRoot(_p, _w, _f.getFileCpp(), _p.getProjectName());
+	if (_p.getInterface())
+		_s.createInterfaceRoot(_p, _w, _f.getFileInterface(), _p.getProjectName());
+	Core::fillPath(_p.getProjectName());
+}
+
+bool Core::generateCode()
+{
+	if (_p.getArchitecture().empty() && !_p.getSubFiles().empty()) {
+		for (const std::string &s : _p.getSubFiles())
+			_arch.push_back("- " + s);
+	}
+	if (!_p.getArchitecture().empty()) {
+		_arch = _f.loadFile(_p.getArchitecture(), true);
+		if (_arch.empty())
+			return false;
+	}
+	Core::minimalCode();
+	if (!Core::architectCode())
+		return false;
 	return true;
 }
 
@@ -104,16 +98,10 @@ bool Core::run(const std::vector<std::string> &v)
 	}
 	if (!_f.loadConfig(_p))
 		return false;
-	if (_p.getMain())
-		_src.push_back("main.cpp");
 
-	_w.setHeader(_f.getHeader());
-	_d.createDir(".", _p.getProjectName());
-	if (_p.getArchitecture().empty())
-		Core::generateCode();
-	else
-		if (!Core::architectCode())
-			return false;
+	if (!Core::generateCode())
+		return false;
+
 	_s.generateMain(_p, _w, _f.getMain(), _inc);
 	_s.generateMakefile(_p, _w, _f.getMakefile(), _src);
 	_s.generateCMake(_p, _w, _f.getCMake(), _inc, _src);

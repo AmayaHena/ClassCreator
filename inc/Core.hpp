@@ -38,8 +38,9 @@ class Core {
 		void fillPath(const std::string &s);
 
 		/* Generation Folders and Files */
-		bool generateCode();
 		bool architectCode();
+		void minimalCode();
+		bool generateCode();
 
 		/* tools */
 		void buildProject();
@@ -54,6 +55,9 @@ class Core {
 		/* Variables - Ressource to build project */
 		std::vector<std::string> _inc;
 		std::vector<std::string> _src;
+
+		/* Variables - Ressource for subfiles */
+		std::vector<std::string> _arch;
 
 };
 
