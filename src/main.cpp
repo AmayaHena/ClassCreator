@@ -24,9 +24,9 @@ int main(int ac, char **av)
 		return 0;
 	}
 
-	Core c(v);
+	Core c;
 
-	if (c.run() == false)
+	if (c.run(v) == false)
 		return 84;
 	std::cout << "\033[1;32mCreation Done\033[0m" << std::endl;
 	return 0;

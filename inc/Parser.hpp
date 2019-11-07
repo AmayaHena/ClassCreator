@@ -27,7 +27,7 @@ class Parser {
 
 		/* Parsing public */
 		bool helperCommand(void);
-		void parsingProceed(const std::vector<std::string> &v);
+		bool parsingProceed(const std::vector<std::string> &v);
 
 		/* Getters */
 		std::string getProjectName();
@@ -41,14 +41,6 @@ class Parser {
 		std::string getArchitecture();
 
 	private:
-
-		/* Parsing private */
-		std::string userInput();
-
-		/* Parsing Types */
-		std::string parsingString(const std::string &type, const std::string &convention);
-		std::vector<std::string> parsingStoVector(const std::string &type, const std::string &convention);
-		bool parsingBoolean(std::string s);
 
 		/* Parsing AV */
 		void AVOptions(const std::vector<std::string> &v, const int i);

@@ -26,11 +26,11 @@ class Core {
 
 	public:
 
-		Core(const std::vector<std::string> &v);
+		Core() = default;
 		~Core() = default;
 
 		/* Main Method - Run the program */
-		bool run();
+		bool run(const std::vector<std::string> &v);
 
 	private:
 

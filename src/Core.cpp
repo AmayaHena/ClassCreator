@@ -10,8 +10,6 @@
 /* CLASS */
 #include "Architecture.hpp"
 
-Core::Core(const std::vector<std::string> &v) { _p.parsingProceed(v); }
-
 void Core::fillPath(const std::string &s)
 {
 	_inc.push_back("inc/" + s + ".hpp");
@@ -98,8 +96,12 @@ void Core::buildProject()
 	system(s.c_str());
 }
 
-bool Core::run()
+bool Core::run(const std::vector<std::string> &v)
 {
+	if (!_p.parsingProceed(v)) {
+		std::cout << "use helper : ./classCreator -h" << std::endl;
+		return false;
+	}
 	if (!_f.loadConfig(_p))
 		return false;
 	if (_p.getMain())
