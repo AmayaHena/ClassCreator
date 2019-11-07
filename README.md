@@ -1,5 +1,7 @@
 # ClassCreator
 
+Working on linux only
+
 This project create class for cpp with personalizable files. It can also generate Interface, inheritance, main function, Makefile, CMakeLists.txt.
 If you're configuration can be build, it will build your project.
 
