@@ -7,59 +7,6 @@
 
 #include "State.hpp"
 
-void State::createHpp(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
-{
-	w.setFile(file);
-
-	if (p.getInheritance() && !p.getInterface()) {
-		w.setInclude(p.getProjectName() + ".hpp");
-		w.setInheritance(p.getProjectName());
-	}
-	if (p.getInterface()) {
-		w.setInclude("I" + s + ".hpp");
-		w.setInheritance("I" + s);
-	}
-	if (p.getFolders()) {
-		_d.createDir(p.getProjectName() + "/inc", s);
-		w.create(s, p.getProjectName() + "/inc/" + s, ".hpp");
-		return;
-	}
-	w.create(s, p.getProjectName() + "/inc", ".hpp");
-}
-
-void State::createCpp(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
-{
-	w.setFile(file);
-
-	if (p.getInheritance())
-		w.setInheritance(p.getProjectName());
-	if (p.getInterface())
-		w.setInheritance("I" + s);
-	if (p.getFolders()) {
-		_d.createDir(p.getProjectName() + "/src", s);
-		w.setInclude(s + "/" + s + ".hpp");
-		w.create(s, p.getProjectName() + "/src/" + s, ".cpp");
-		return;
-	}
-	w.setInclude(s + ".hpp");
-	w.create(s, p.getProjectName() + "/src", ".cpp");
-}
-
-void State::createInterface(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
-{
-	w.setFile(file);
-
-	if (p.getInheritance()) {
-		w.setInclude("I" + p.getProjectName() + ".hpp");
-		w.setInheritance("I" + p.getProjectName());
-	}
-	if (p.getFolders()) {
-		w.create("I" + s, p.getProjectName() + "/inc/" + s, ".hpp");
-		return;
-	}
-	w.create("I" + s, p.getProjectName() + "/inc", ".hpp");
-}
-
 void State::createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i, std::string &past_path)
 {
 	w.setFile(file);

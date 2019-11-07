@@ -7,7 +7,7 @@
 
 #include "Parser.hpp"
 
-Parser::Parser() : _main(false), _interface(false), _inheritance(false), _makefile(false), _cmake(false), _folders(false) {}
+Parser::Parser() : _main(false), _interface(false), _inheritance(false), _makefile(false), _cmake(false) {}
 
 std::string Parser::getProjectName(void)
 {
@@ -39,11 +39,6 @@ bool Parser::getMakefile(void)
 	return _makefile;
 }
 
-bool Parser::getFolders(void)
-{
-	return _folders;
-}
-
 bool Parser::getCMake(void)
 {
 	return _cmake;
@@ -56,14 +51,13 @@ std::string Parser::getArchitecture()
 
 bool Parser::helperCommand()
 {
-    std::cout << "usage: classCreator [Project Name] [-miMCdfA] ..." << std::endl
+    std::cout << "usage: classCreator [Project Name] [-miMCfA] ..." << std::endl
               << std::endl << "\tOptions:" << std::endl
               << "\t-m\tmake a main function" << std::endl
               << "\t-i\tmake inheritance from the main class of the project" << std::endl
               << "\t-I\tmake interface for every class" << std::endl
               << "\t-M\tmake a makefile" << std::endl
               << "\t-C\tmake CMakeLists.txt for CMake" << std::endl
-              << "\t-d\tmake directory for classes" << std::endl
               << "\t-f\tmake some subfiles for your project, muste be follow by subfiles name" << std::endl
               << "\t-A\ttake a file as parameter following this option and generate an architecture" << std::endl << std::endl;
     return false;
@@ -87,9 +81,6 @@ void Parser::AVOptions(const std::vector<std::string> &v, const int i)
 			break;
 		case 'C' :
 			_cmake = true;
-			break;
-		case 'd' :
-			_folders = true;
 			break;
 		case 'A' :
 			_architecture = v[i + 1];

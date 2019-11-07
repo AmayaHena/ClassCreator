@@ -37,7 +37,6 @@ class Parser {
 		bool getInterface();
 		bool getMakefile();
 		bool getCMake();
-		bool getFolders();
 		std::string getArchitecture();
 
 	private:
@@ -54,7 +53,6 @@ class Parser {
 		bool _inheritance;
 		bool _makefile;
 		bool _cmake;
-		bool _folders;
 		std::string _architecture;
 
 };

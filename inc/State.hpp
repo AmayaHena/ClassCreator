@@ -25,10 +25,6 @@ class State {
 		~State() = default;
 
 		/* Tools - state the writer and launch writer */
-		/* CPP HPP Interface */
-		void createHpp(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
-		void createCpp(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
-		void createInterface(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
 
 		/* CPP HPP Interface for complex arch */
 		void createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, std::string &path, unsigned int i, std::string &past_path);
