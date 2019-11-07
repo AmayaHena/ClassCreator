@@ -7,25 +7,15 @@
 
 #include "Core.hpp"
 
-/* CLASS */
-#include "Architecture.hpp"
-
-void Core::fillPath(const std::string &s)
+bool Core::architectCode(const std::vector<std::string> &arch_comp)
 {
-	_inc.push_back("inc/" + s + ".hpp");
-	_src.push_back("src/" + s + ".cpp");
-}
-
-bool Core::architectCode()
-{
-	Architecture a;
-	std::vector<std::string> arch_comp = a.completePartial(_arch);
 	std::vector<std::string> tmp;
 	std::string path;
+	std::string path_past;
 
 	for (const std::string &s: arch_comp) {
-		tmp = a.cutLine(s);
-		std::string path_past = _p.getProjectName();
+		tmp = _a.cutLine(s);
+		path_past = _p.getProjectName();
 		for (unsigned int i = 0; i < tmp.size(); i++)  {
 			path = path +  "/" + tmp[i];
 			if (_d.createDir(_p.getProjectName() + "/inc" + path)) {
@@ -58,22 +48,24 @@ void Core::minimalCode()
 	_s.createCppRoot(_p, _w, _f.getFileCpp(), _p.getProjectName());
 	if (_p.getInterface())
 		_s.createInterfaceRoot(_p, _w, _f.getFileInterface(), _p.getProjectName());
-	Core::fillPath(_p.getProjectName());
+	_inc.push_back("inc/" + _p.getProjectName() + ".hpp");
+	_src.push_back("src/" + _p.getProjectName() + ".cpp");
 }
 
 bool Core::generateCode()
 {
-	if (_p.getArchitecture().empty() && !_p.getSubFiles().empty()) {
+	if (_p.getArchitecture().empty() && !_p.getSubFiles().empty())
 		for (const std::string &s : _p.getSubFiles())
 			_arch.push_back("- " + s);
-	}
+
 	if (!_p.getArchitecture().empty()) {
 		_arch = _f.loadFile(_p.getArchitecture(), true);
 		if (_arch.empty())
 			return false;
 	}
+
 	Core::minimalCode();
-	if (!Core::architectCode())
+	if (!Core::architectCode(_a.completePartial(_arch)))
 		return false;
 	return true;
 }
