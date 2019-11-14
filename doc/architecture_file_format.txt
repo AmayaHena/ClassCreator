@@ -1,7 +1,7 @@
 Here is some exmplanation about the file format to use the 'A' option
 You can find a complete example of file in : doc/exampleArch.txt
 
-Waraning : Each name of dir must be in only one Word (use PascalCase)
+Warning : Each name of dir must be in only one Word (use PascalCase)
 
 To understand the file format, this file :
 
