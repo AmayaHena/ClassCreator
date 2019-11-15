@@ -14,3 +14,5 @@ cmake . && make
 ```
 
 I hope that will help you to understand C++ or accelerate your productivity.
+
+You can find documentation in Wiki section, on github repo.
