@@ -73,9 +73,9 @@ void Core::buildProject()
 {
 	std::string s;
 
-	if (_p.getCMake() == true)
+	if (_p.getCMake())
 		s = "cmake CMakeLists.txt && make";
-	if (_p.getMakefile() == true)
+	if (_p.getMakefile())
 		s = "make && make clean";
 	chdir(_p.getProjectName().c_str());
 	system(s.c_str());
